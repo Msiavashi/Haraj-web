@@ -29,4 +29,4 @@ run the commands in order:
 4. python manage.py sqlmigrate blogsite 0001_initial
 5. python manage.py migrate
 
-#### NOTE: change your database username and password if yours in differenct, in settings.py
+#### NOTE: change your database username and password if yours is different, in settings.py
