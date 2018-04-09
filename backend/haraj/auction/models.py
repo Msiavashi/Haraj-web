@@ -8,22 +8,22 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=30)
     password = models.CharField(max_length=50)
-    register_date = models.DateTimeField(default=timezone.datetime.now())
+    register_date = models.DateTimeField(default=timezone.now)
     phone_number = models.CharField(max_length=20)
     email = models.EmailField()
     credit = models.DecimalField(max_digits=20, decimal_places=4)
     gift_credit = models.DecimalField(max_digits=20, decimal_places=4)
-    organization_or_person = models.CharField(choices=["organization", "person"])
+    organization_or_person = models.CharField(max_length=20, choices=[(1, "organization"), (2, "person")])
     
 
-class Peyment(models.Model):
+class Payment(models.Model):
     amount = models.DecimalField(max_digits=20, decimal_places=4)
     payment_id = models.CharField(max_length=32)
-    date = models.DateTimeField(default=timezone.datetime.now())
+    date = models.DateTimeField(default=timezone.now)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 class Role(models.Model):
-    role = models.CharField(choices=["admin", "customer"])
+    role = models.CharField(max_length=20, choices=[(1, "admin"), (2, "customer")])
     customers = models.ManyToManyField(Customer)
 
 
@@ -39,7 +39,7 @@ class Address(models.Model):
 class Auction(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    created_date = models.DateTimeField(default=timezone.datetime.now())
+    created_date = models.DateTimeField(default=timezone.now)
     start_date = models.DateField()
     end_date = models.DateField()
     minimum_price_increment = models.DecimalField(max_digits=20, decimal_places=4)
@@ -86,13 +86,13 @@ class Manufacture(models.Model):
     products = models.ManyToManyField(Product)
 
 class Order(models.Model):
-    create_date = models.DateTimeField(default=timezone.datetime.now())
-    modify_date = models.DateTimeField(default=timezone.datetime.now())
+    create_date = models.DateTimeField(default=timezone.now)
+    modify_date = models.DateTimeField(default=timezone.now)
     custormer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 class Offer(models.Model):
     offer_price = models.DecimalField(max_digits=20, decimal_places=4)
-    date = models.DateField(default=timezone.datetime.now())
+    date = models.DateField(default=timezone.now)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
 
@@ -118,8 +118,3 @@ class Insurance(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=20, decimal_places=4)
     items = models.ManyToManyField(Item)
-
-
-
-
-
